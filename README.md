@@ -22,6 +22,12 @@ This will build and run unity tests
 make test
 ```
 
+### Run Binary
+
+```bash
+./build/bin/example_app
+```
+
 ## Project directory structure
 
  - app/ -- Application source code.
