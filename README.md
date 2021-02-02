@@ -64,5 +64,5 @@ sudo apt-get install clang cmake libsdl2-dev libsdl2-image-dev
 ```
 
 ## License
-This is free and unencumbered software released into the public domain
+This is free and unencumbered software released into the public domain.  
 For more information, please refer to <http://unlicense.org/>
