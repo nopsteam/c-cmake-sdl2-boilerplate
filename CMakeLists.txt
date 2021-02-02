@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.0)
+project(ExampleSDL2C)
+include(CTest)
+
+# cmake module directory
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_BINARY_DIR}/cmake/")
+
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+
+# Output directory structure configuration.
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
+set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
+set(TEST_OUTPUT_PATH "${EXECUTABLE_OUTPUT_PATH}/test")
+
+# generates a compile_commands.json file containing the exact compiler calls
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
+# Project-wide include directory configuration.
+include_directories("${PROJECT_SOURCE_DIR}/src")
+
+# Project library source lives in src/.
+add_subdirectory(src)
+
+# Project apps that may link to project libraries live in app/.
+add_subdirectory(app)
+
+# CTest sets BUILD_TESTING option to ON by default.
+# Test-related configuration goes here.
+if (BUILD_TESTING)
+    enable_testing()
+    add_subdirectory(test)
+endif()
