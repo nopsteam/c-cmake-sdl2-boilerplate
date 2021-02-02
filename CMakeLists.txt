@@ -6,12 +6,34 @@ include(CTest)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_BINARY_DIR}/cmake/")
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_IMAGE_DIRS})
 
 # Output directory structure configuration.
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
 set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
 set(TEST_OUTPUT_PATH "${EXECUTABLE_OUTPUT_PATH}/test")
+
+# add symbolic link to resources folder in build
+add_custom_target(resources)
+FILE(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/resources" source)
+FILE(TO_NATIVE_PATH "${PROJECT_BINARY_DIR}/resources" destination)
+IF (WIN32)
+  add_custom_command(
+    TARGET resources POST_BUILD
+    COMMAND mklink /D ${destination} ${source}
+    DEPENDS ${destination}
+    COMMENT "symbolic link resources folder from ${source} => ${destination}"
+  )
+ELSE()
+  add_custom_command(
+    TARGET resources POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${source} ${destination}
+    DEPENDS ${destination}
+    COMMENT "symbolic link resources folder from ${source} => ${destination}"
+  )
+ENDIF()
 
 # generates a compile_commands.json file containing the exact compiler calls
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
