@@ -1,27 +1,52 @@
-# Include Unity test framework.
+# Config
+
+# 1. Declare the test file
+set(Tests
+  runner
+  runner2)
+
+# 2. Declare dependencies of each test file
+set(runner_deps
+  example)
+
+set(runner2_deps
+  "")
+
+# 3. Add dependencies to a list, need to be in the same order as item 1
+set(Dependencies
+  runner_deps
+  runner2_deps)
+
+###################################################################
+
 add_subdirectory(unity)
+foreach(tst depen IN ZIP_LISTS Tests Dependencies)
+  message(STATUS "test=${tst}, dependency=${depen}")
+  add_executable(
+    ${tst}
+    ${tst}.c)
 
-# Configure an example test binary.
-add_executable(
-    example_test
-    example_test.c
-)
+  target_link_libraries(
+    ${tst}
+    unity)
 
-target_link_libraries(
-    example_test
-    unity
-    example
-)
+  foreach(ds ${depen})
+    foreach(d ${${ds}})
+      message(STATUS "-> test=${tst}, dependency=${d}")
+      target_link_libraries(
+        ${tst}
+        ${d})
+    endforeach(d)
+  endforeach(ds)
 
-target_include_directories(
-    example_test PUBLIC
-    ${PROJECT_SOURCE_DIR}/test/unity
-)
+  target_include_directories(
+    ${tst} PUBLIC
+    ${PROJECT_SOURCE_DIR}/test/unity)
 
-set_target_properties(
-    example_test
+  set_target_properties(
+    ${tst}
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_PATH}"
-)
+    RUNTIME_OUTPUT_DIRECTORY "${TEST_OUTPUT_PATH}")
 
-add_test(example_test "${TEST_OUTPUT_PATH}/example_test")
+  add_test(${tst} "${TEST_OUTPUT_PATH}/${tst}")
+endforeach()
