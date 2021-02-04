@@ -20,8 +20,8 @@ set(Dependencies
 ###################################################################
 
 add_subdirectory(unity)
-foreach(tst depen IN ZIP_LISTS Tests Dependencies)
-  message(STATUS "test=${tst}, dependency=${depen}")
+foreach(tst deps IN ZIP_LISTS Tests Dependencies)
+  message(STATUS "test=${tst}, dependencies=${deps}")
   add_executable(
     ${tst}
     ${tst}.c)
@@ -30,14 +30,12 @@ foreach(tst depen IN ZIP_LISTS Tests Dependencies)
     ${tst}
     unity)
 
-  foreach(ds ${depen})
-    foreach(d ${${ds}})
-      message(STATUS "-> test=${tst}, dependency=${d}")
-      target_link_libraries(
-        ${tst}
-        ${d})
-    endforeach(d)
-  endforeach(ds)
+  foreach(dep ${${deps}})
+    message(STATUS "-> test=${tst}, dependency=${dep}")
+    target_link_libraries(
+      ${tst}
+      ${dep})
+  endforeach(dep)
 
   target_include_directories(
     ${tst} PUBLIC
