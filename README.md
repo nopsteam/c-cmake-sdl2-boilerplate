@@ -42,24 +42,22 @@ This will open an SDL black window with the unlicense logo on it for 3 seconds.
 
 ## Directory Structure
 ```
- - app/ -- Application source code.
- - src/ -- Library source code and headers.
- - resources/ -- Application resources assets folder.
- - test/ -- Test source code.
-   - unity/ -- Unity test framework source.
-
- - build/cmake -- Cmake Finders for external compiled libs
-
- - build/debug -- Application debug build
-   - bin/ -- Application binaries.
-   - resources/ -- Application resources assets symbolic link.
-     - test/ -- Test binaries.
-   - lib/ -- Libraries.
-
- - build/release -- Application release build
-   - bin/ -- Application binaries.
-   - resources/ -- Application resources assets symbolic link.
-   - lib/ -- Libraries.
+./
+├── .github
+│   └── workflows -- Github workflows folder.
+├── app -- Application source code
+├── build
+│   ├── cmake -- Cmake Finders for external compiled libs.
+│   ├── debug -- Cmake debug build generated files.
+│   │   ├── bin -- Application debug binaries.
+│   │   └── resources -- Application resources assets symbolic link.
+│   └── release -- Cmake release build generated files.
+│       ├── bin -- Application release binaries.
+│       └── resources -- Application resources assets symbolic link.
+├── resources -- Application resources assets folder.
+├── src -- Library source code and headers.
+└── test -- Test source code.
+    └── unity -- Unity test framework source.
 ```
 
 ## Dependencies
