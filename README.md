@@ -1,4 +1,4 @@
-# C, Cmake and SDL2 Boilerplate
+# C, Cmake and SDL2 Boilerplate ![CI](https://github.com/rafaeldelboni/c-cmake-sdl2-boilerplate/workflows/CI/badge.svg)
 
 This is a C project template with the following features:
 
