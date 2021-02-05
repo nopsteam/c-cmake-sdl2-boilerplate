@@ -13,7 +13,10 @@ This is a C project template with the following features:
 
 ### Build
 ```bash
-make build
+# Debug build
+make 
+# Release build
+make release
 ```
 
 ### Run Tests
@@ -22,25 +25,42 @@ This will build and run unity tests
 make test
 ```
 
+### Clean
+This will delete generated files for debug and release
+```bash
+make clean
+```
+
 ### Run Binary
 This will open an SDL black window with the unlicense logo on it for 3 seconds.
 ```bash
-./build/bin/example_app
+# Debug bin
+./build/debug/bin/example_app
+# Release bin
+./build/release/bin/example_app
 ```
 
 ## Directory Structure
-
-### Project 
+```
  - app/ -- Application source code.
  - src/ -- Library source code and headers.
  - resources/ -- Application resources assets folder.
  - test/ -- Test source code.
    - unity/ -- Unity test framework source.
 
-### Build
- - bin/ -- Application binaries.
-   - test/ -- Test binaries.
- - lib/ -- Libraries.
+ - build/cmake -- Cmake Finders for external compiled libs
+
+ - build/debug -- Application debug build
+   - bin/ -- Application binaries.
+   - resources/ -- Application resources assets symbolic link.
+     - test/ -- Test binaries.
+   - lib/ -- Libraries.
+
+ - build/release -- Application release build
+   - bin/ -- Application binaries.
+   - resources/ -- Application resources assets symbolic link.
+   - lib/ -- Libraries.
+```
 
 ## Dependencies
  - [Clang](https://clang.llvm.org/)
