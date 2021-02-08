@@ -3,12 +3,12 @@
 This is a C project template with the following features:
 
  - CMake build scripts for building libraries, applications, and tests.
- - Integrated with [DownloadProject](https://github.com/Crascit/DownloadProject) for lib dependencies like [Unity](https://github.com/rafaeldelboni/c-cmake-sdl2-boilerplate/blob/main/CMakeLists.txt#L11-L17).
- - Integrated with [Unity unit test framework](https://github.com/ThrowTheSwitch/Unity).
  - Integrated with [SDL2](https://www.libsdl.org/).
  - Integrated with [SDL2 Image](https://www.libsdl.org/projects/SDL_image/).
+ - Integrated with [Unity unit test framework](https://github.com/ThrowTheSwitch/Unity).
+ - Integrated with [DownloadProject](https://github.com/Crascit/DownloadProject) for library dependencies like [Unity](https://github.com/rafaeldelboni/c-cmake-sdl2-boilerplate/blob/main/CMakeLists.txt#L11-L17).
  - Resource folder to include assets
- - Updated and simplified version of [C-project-template](https://github.com/peterdn/C-project-template)
+ - Updated and improved version of [C-project-template](https://github.com/peterdn/C-project-template)
 
 ## Usage
 
