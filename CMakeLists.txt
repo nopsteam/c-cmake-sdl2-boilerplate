@@ -5,6 +5,16 @@ include(CTest)
 # cmake module directory
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/build/cmake/")
 
+# Download project dependencies
+set(UPDATE_DISCONNECTED_IF_AVAILABLE "UPDATE_DISCONNECTED 1")
+
+# Download / Include Unity Test Runner
+include(DownloadProject.cmake)
+download_project(PROJ unity
+  GIT_REPOSITORY      https://github.com/ThrowTheSwitch/Unity.git
+  GIT_TAG             master
+  ${UPDATE_DISCONNECTED_IF_AVAILABLE})
+add_subdirectory(${unity_SOURCE_DIR} ${unity_BINARY_DIR})
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
