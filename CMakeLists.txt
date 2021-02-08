@@ -1,8 +1,11 @@
+# Setup
 cmake_minimum_required(VERSION 3.17)
 project(ExampleSDL2C)
 include(CTest)
+include(FetchContent)
+set(FETCHCONTENT_QUIET 0)
 
-# cmake module directory
+# Cmake module directory
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/build/cmake/")
 
 # Uses finders in build/cmake to search for OS pre-installed package libraries
@@ -11,23 +14,20 @@ find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${SDL2_IMAGE_DIRS})
 
-# Download project dependencies
-set(UPDATE_DISCONNECTED_IF_AVAILABLE "UPDATE_DISCONNECTED 1")
-
 # Download / Include Unity Test Runner
-include(DownloadProject.cmake)
-download_project(PROJ unity
-  GIT_REPOSITORY      https://github.com/ThrowTheSwitch/Unity.git
-  GIT_TAG             master
-  ${UPDATE_DISCONNECTED_IF_AVAILABLE})
-add_subdirectory(${unity_SOURCE_DIR} ${unity_BINARY_DIR})
+FetchContent_Declare(
+  unity
+  GIT_REPOSITORY https://github.com/ThrowTheSwitch/Unity.git
+  GIT_TAG        master)
+
+FetchContent_MakeAvailable(unity)
 
 # Output directory structure configuration.
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
 set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
 set(TEST_OUTPUT_PATH "${EXECUTABLE_OUTPUT_PATH}/test")
 
-# add symbolic link to resources folder in build
+# Add symbolic link to resources folder in build
 add_custom_target(resources)
 FILE(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/resources" source)
 FILE(TO_NATIVE_PATH "${PROJECT_BINARY_DIR}/resources" destination)
@@ -47,7 +47,7 @@ ELSE()
   )
 ENDIF()
 
-# generates a compile_commands.json file containing the exact compiler calls
+# Generates a compile_commands.json file containing the exact compiler calls
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 FILE(TO_NATIVE_PATH "${PROJECT_BINARY_DIR}/compile_commands.json" sourceJson)
 FILE(TO_NATIVE_PATH "${PROJECT_SOURCE_DIR}/build/compile_commands.json" destinationJson)

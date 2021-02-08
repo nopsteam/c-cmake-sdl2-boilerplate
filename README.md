@@ -6,16 +6,22 @@ This is a C project template with the following features:
  - Integrated with [SDL2](https://www.libsdl.org/).
  - Integrated with [SDL2 Image](https://www.libsdl.org/projects/SDL_image/).
  - Integrated with [Unity unit test framework](https://github.com/ThrowTheSwitch/Unity).
- - Integrated with [DownloadProject](https://github.com/Crascit/DownloadProject) for library dependencies like [Unity](https://github.com/rafaeldelboni/c-cmake-sdl2-boilerplate/blob/main/CMakeLists.txt#L11-L17).
+ - Integrated with [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html) for library dependencies like [Unity](https://github.com/rafaeldelboni/c-cmake-sdl2-boilerplate/blob/main/CMakeLists.txt#L19-L25).
  - Resource folder to include assets
  - Updated and improved version of [C-project-template](https://github.com/peterdn/C-project-template)
 
 ## Usage
 
+### Setup
+This will build cmake files and download dependencies
+```bash
+make setup
+```
+
 ### Build
 ```bash
 # Debug build
-make 
+make debug
 # Release build
 make release
 ```
