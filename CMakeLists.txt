@@ -5,6 +5,12 @@ include(CTest)
 # cmake module directory
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/build/cmake/")
 
+# Uses finders in build/cmake to search for OS pre-installed package libraries
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_IMAGE_DIRS})
+
 # Download project dependencies
 set(UPDATE_DISCONNECTED_IF_AVAILABLE "UPDATE_DISCONNECTED 1")
 
@@ -15,11 +21,6 @@ download_project(PROJ unity
   GIT_TAG             master
   ${UPDATE_DISCONNECTED_IF_AVAILABLE})
 add_subdirectory(${unity_SOURCE_DIR} ${unity_BINARY_DIR})
-
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${SDL2_IMAGE_DIRS})
 
 # Output directory structure configuration.
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
