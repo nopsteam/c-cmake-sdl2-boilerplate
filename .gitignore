@@ -1,6 +1,7 @@
 # Build directory.
 build/debug/*
 build/release/*
+build/coverage/*
 build/compile_commands.json
 
 # Prerequisites
