@@ -50,6 +50,14 @@ jobs:
       - name: Run Coverage Checks
         run: |
           make coverage
+      - shell: bash
+        run: |
+          echo "{\"schemaVersion\": 1, \"label\": \"Coverage\", \"message\": \""$(lcov -l ./build/coverage/coverage.info | grep Total | grep -o -P '(?<=Total:\|).*?(?=%)')"%\", \"color\": \"blue\"}" >> ./build/coverage/coverage.json
+      - name: Upload Coverage Result Json
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: build/coverage/coverage.json
       - name: Generage Coverage Reports
         uses: romeovs/lcov-reporter-action@v0.2.21
         with:
