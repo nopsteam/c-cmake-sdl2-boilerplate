@@ -32,6 +32,14 @@ This will build and run unity tests
 make test
 ```
 
+#### Code Coverage Checks
+This will build and run unity tests and generate reports for coverage (depends on lcov)
+```bash
+make coverage
+# This part is optional: Generates a html with more coverage details
+genhtml build/coverage/coverage.info --output-directory build/coverage/out
+```
+
 ### Clean
 This will delete generated files for debug and release
 ```bash
@@ -73,19 +81,20 @@ This will open an SDL black window with the unlicense logo on it for 3 seconds.
  - [CMake](https://cmake.org/)
  - [SDL2](https://www.libsdl.org/)
  - [SDL2 Image](https://www.libsdl.org/projects/SDL_image/)
+ - [LCOV](https://github.com/linux-test-project/lcov)
 
 ### Installing Dependencies
 
 #### Arch Linux
 ```bash
-pacman -Sy clang cmake sdl2 sdl2_image
+yay -Sy clang cmake lcov sdl2 sdl2_image
 ```
 
 #### Ubuntu
 ```bash
 sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
 sudo apt-get update -y -qq
-sudo apt-get install clang cmake libsdl2-dev libsdl2-image-dev
+sudo apt-get install clang cmake lcov libsdl2-dev libsdl2-image-dev
 ```
 
 ## License
