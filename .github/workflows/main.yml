@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v1.7
+        uses: jwlawson/actions-setup-cmake@v1.8
         with:
           cmake-version: '3.17.x'
       - name: Install Dependencies
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v1.7
+        uses: jwlawson/actions-setup-cmake@v1.8
         with:
           cmake-version: '3.17.x'
       - name: Install Dependencies
@@ -51,6 +51,7 @@ jobs:
         run: |
           make coverage
       - name: Generage Coverage Reports
+        if: ${{ github.ref != 'refs/heads/main' && matrix.os == 'ubuntu-latest' }}
         uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
