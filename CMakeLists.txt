@@ -9,10 +9,10 @@ set(FETCHCONTENT_QUIET 0)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/build/cmake/")
 
 # Uses finders in build/cmake to search for OS pre-installed package libraries
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${SDL2_IMAGE_DIRS})
+#find_package(SDL2 REQUIRED)
+#find_package(SDL2_image REQUIRED)
+#include_directories(${SDL2_INCLUDE_DIRS})
+#include_directories(${SDL2_IMAGE_DIRS})
 
 # Download / Include Unity Test Runner
 FetchContent_Declare(
@@ -20,7 +20,17 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/ThrowTheSwitch/Unity.git
   GIT_TAG        master)
 
-FetchContent_MakeAvailable(unity)
+FetchContent_Declare(
+  sdl2_image
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
+  GIT_TAG release-2.0.5)
+
+FetchContent_Declare(
+  sdl2
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL
+  GIT_TAG release-2.0.14)
+
+FetchContent_MakeAvailable(unity sdl2_image sdl2)
 
 # Output directory structure configuration.
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
