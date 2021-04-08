@@ -25,6 +25,7 @@ FetchContent_Declare(
   sdl2_image
   GIT_REPOSITORY https://github.com/eliasdaler/SDL_image
   GIT_TAG main)
+SET(PNG_TESTS OFF CACHE BOOL "Build libpng tests" FORCE)
 
 FetchContent_GetProperties(sdl2_image)
 if(NOT sdl2_image_POPULATED)
@@ -32,6 +33,7 @@ if(NOT sdl2_image_POPULATED)
   FetchContent_Populate(sdl2_image)
   add_subdirectory(${sdl2_image_SOURCE_DIR} ${sdl2_image_BINARY_DIR})
 endif()
+
 
 # Output directory structure configuration.
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
