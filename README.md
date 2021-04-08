@@ -97,6 +97,12 @@ sudo apt-get update -y -qq
 sudo apt-get install clang cmake lcov libsdl2-dev libsdl2-image-dev
 ```
 
+## Showcase
+
+Projects using this boilerplate:
+
+ - [6502 Emulator](https://github.com/nopsteam/6502)
+
 ## License
 This is free and unencumbered software released into the public domain.  
 For more information, please refer to <http://unlicense.org/>
