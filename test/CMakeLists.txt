@@ -7,7 +7,7 @@ set(Tests
 
 # 2. Declare dependencies of each test file
 set(runner_deps
-  example)
+  sample)
 
 set(runner2_deps
   "")

@@ -1,20 +1,20 @@
 add_executable(
-  example_app
-  example_app.c
+  sample_app
+  sample_app.c
 )
 
 target_link_libraries(
-  example_app
-  example
+  sample_app
+  sample
 )
 
 add_dependencies(
-  example_app
+  sample_app
   resources
 )
 
 target_link_libraries(
-  example_app
+  sample_app
   SDL2
   SDL2_image
 )

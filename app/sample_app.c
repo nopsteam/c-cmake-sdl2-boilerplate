@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include "SDL.h"
 #include "SDL_image.h"
-#include "example.h"
+#include "sample.h"
 
 int main(int argc, char *argv[])
 {
   SDL_Init(SDL_INIT_VIDEO);
 
   SDL_Window *window = SDL_CreateWindow(
-      "SDL2Test",
+      "SDL2Sample",
       SDL_WINDOWPOS_UNDEFINED,
       SDL_WINDOWPOS_UNDEFINED,
       640,
@@ -64,10 +64,10 @@ int main(int argc, char *argv[])
   SDL_Quit();
 
   // example of using libs
-  printf("Hello, example!\n");
-  example_t *example = example_new_with_cstr("test_key", "test_value");
-  example_print_cstr(example);
-  example_free(example);
+  printf("Hello, sample!\n");
+  sample_t *sample = sample_new_with_cstr("test_key", "test_value");
+  sample_print_cstr(sample);
+  sample_free(sample);
 
   return EXIT_SUCCESS;
 }

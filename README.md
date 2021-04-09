@@ -50,9 +50,9 @@ make clean
 This will open an SDL black window with the unlicense logo on it for 3 seconds.
 ```bash
 # Debug bin
-./build/debug/bin/example_app
+./build/debug/bin/sample_app
 # Release bin
-./build/release/bin/example_app
+./build/release/bin/sample_app
 ```
 
 ## Directory Structure

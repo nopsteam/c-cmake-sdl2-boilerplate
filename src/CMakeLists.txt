@@ -1,5 +1,5 @@
-add_library(example SHARED
-  example.c
+add_library(sample SHARED
+  sample.c
 )
 
 ###################################################################
