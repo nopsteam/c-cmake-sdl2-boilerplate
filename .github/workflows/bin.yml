@@ -1,0 +1,63 @@
+name: Binaries
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+    linux:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Install dependencies.
+              run: sudo apt-get update && sudo apt-get -qy install clang libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+
+            - name: Compile!
+              run: make linux
+
+            - uses: actions/upload-artifact@v2
+              with:
+                  path: ./build/release/linux
+
+    mac:
+        runs-on: macos-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Install dependencies.
+              run: brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
+
+            - name: Compile!
+              run: make mac
+
+            - uses: actions/upload-artifact@v2
+              with:
+                  path: ./build/release/mac
+
+    windows:
+        runs-on: windows-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: nuget/setup-nuget@v1
+
+            - name: Install dependencies.
+              run: nuget install sdl2.nuget -NonInteractive -ExcludeVersion -OutputDirectory C:\INCLUDE\; nuget install sdl2_image.nuget -NonInteractive -ExcludeVersion -OutputDirectory C:\INCLUDE\; nuget install sdl2_mixer.nuget -NonInteractive -ExcludeVersion -OutputDirectory C:\INCLUDE\; nuget install sdl2_ttf.nuget -NonInteractive -ExcludeVersion -OutputDirectory C:\INCLUDE\
+            - name: Clean up paths to match other platforms.
+              run: mkdir C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2.nuget\build\native\include\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_image.nuget\build\native\include\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_mixer.nuget\build\native\include\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_ttf.nuget\build\native\include\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2.nuget\build\native\lib\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_image.nuget\build\native\lib\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_mixer.nuget\build\native\lib\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_ttf.nuget\build\native\lib\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2.nuget.redist\build\native\bin\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_image.nuget.redist\build\native\bin\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_mixer.nuget.redist\build\native\bin\x64\dynamic\ C:\INCLUDE\SDL2\; robocopy C:\INCLUDE\sdl2_ttf.nuget.redist\build\native\bin\x64\dynamic\ C:\INCLUDE\SDL2\; if ($LASTEXITCODE -le 7) { exit 0 } else { exit 1 }
+            - name: Install VS build tools and LLVM/clang.
+              run: choco install visualcpp-build-tools -y; choco install llvm -y
+
+            - name: Prepare VS enviro and compile!
+              run: $VS_EDITION = dir 'C:\Program Files (x86)\Microsoft Visual Studio\' | ? -FilterScript {$_.Name -like "[0-9]*"} | Sort CreationTime | Select Name -First 1; $VCVARSALL_BIN = Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio\$($VS_EDITION.Name)\" -Filter 'vcvarsall.bat' -Recurse | Select FullName -First 1; $Env:CC = "`"C:\Program Files\LLVM\bin\clang.exe`""; cmd /c "`"$($VCVARSALL_BIN.FullName)`" x64 && nmake /a windows"
+
+            - uses: actions/upload-artifact@v2
+              with:
+                  path: ./build/release/windows

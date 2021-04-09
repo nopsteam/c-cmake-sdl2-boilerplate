@@ -1,6 +1,9 @@
 add_library(example SHARED
   example.c
 )
+set_target_properties(example PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
 
 ###################################################################
 

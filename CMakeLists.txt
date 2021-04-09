@@ -24,7 +24,7 @@ FetchContent_MakeAvailable(unity)
 
 # Output directory structure configuration.
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
-set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/src")
+set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
 set(TEST_OUTPUT_PATH "${EXECUTABLE_OUTPUT_PATH}/test")
 
 # Add symbolic link to resources folder in build
