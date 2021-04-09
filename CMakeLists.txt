@@ -23,7 +23,7 @@ FetchContent_MakeAvailable(unity sdl2)
 
 FetchContent_Declare(
   sdl2_image
-  GIT_REPOSITORY https://github.com/eliasdaler/SDL_image
+  GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
   GIT_TAG main)
 SET(PNG_TESTS OFF CACHE BOOL "Build libpng tests" FORCE)
 
