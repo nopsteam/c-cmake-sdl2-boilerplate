@@ -11,8 +11,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/build/cmake/")
 # Uses finders in build/cmake to search for OS pre-installed package libraries
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${SDL2_IMAGE_DIRS})
+
+include_directories(${SDL2_INCLUDE_DIR}
+                    ${SDL2_IMAGE_INCLUDE_DIR})
 
 # Download / Include Unity Test Runner
 FetchContent_Declare(
