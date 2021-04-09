@@ -70,11 +70,13 @@ SET(SDL2_SEARCH_PATHS
 	~/Library/Frameworks
 	/Library/Frameworks
 	/usr/local
+	/usr/local/Cellar
 	/usr
 	/sw # Fink
 	/opt/local # DarwinPorts
 	/opt/csw # Blastwave
 	/opt
+	/include
 	${SDL2_PATH}
 )
 
