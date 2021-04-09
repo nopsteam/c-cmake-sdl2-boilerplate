@@ -15,6 +15,6 @@ add_dependencies(
 
 target_link_libraries(
   example_app
-  ${SDL2_LIBRARIES}
+  ${SDL2_LIBRARY}
   ${SDL2_IMAGE_LIBRARIES}
 )
