@@ -1,0 +1,71 @@
+name: Binaries
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    name: Build on Ubuntu
+
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [ clang ]
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - name: build
+        env:
+          CC: ${{ matrix.compiler }}
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release -B build/release
+          make release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux-bin
+          path: ./build/release/bin
+
+  macos:
+    runs-on: macos-latest
+    name: Build on Mac OS
+
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [ clang ]
+
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - name: build
+        env:
+          CC: ${{ matrix.compiler }}
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release -B build/release
+          make release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: mac-bin
+          path: ./build/release/bin
+
+  windows:
+    runs-on: windows-latest
+    name: Build on Windows
+
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - name: build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release -B build/release
+          cmake --build build/release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: windows-bin
+          path: ./build/release/bin
