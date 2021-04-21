@@ -60,3 +60,9 @@ dkms.conf
 # IDE and editor private config/settings
 .vscode
 .cache
+
+# Ignores
+!build/debug/.gitkeep
+!build/release/.gitkeep
+!build/coverage/.gitkeep
+!resources/*.obj
